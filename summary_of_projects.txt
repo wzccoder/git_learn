@@ -1,0 +1,60 @@
+
+session()函数用法
+session['username'] 若'username'没有，则返回异常
+session.get('username') 若'username'没有，返回None
+删除session
+session.clear() 删除cookie更彻底
+session.pop() 也可以删除session
+
+
+db.relationship()函数是什么作用？
+
+
+数据库增删改查
+增加：
+db.session.add('属性')
+事物：
+将数据添加到数据库中
+db.session.commit()
+查：
+select * from 表名 where 属性=“某值”
+假设模型名字为 Article
+result = Article.query.filter(Article.title == "aaa").all()
+此命令取出的是数据库表单中的所有数据
+result = Article.query.filter(Article.title == "aaa").first()
+此命令取出的是数据库表单中第一条数据
+改：
+result.title = 'new tile'
+db.session.commit()
+删：
+db.session.delete(result)
+db.session.commit()
+
+外键和关系映射
+d b.create_all() 初始化定义好的模型，映射到数据库
+数据库中操作：
+show create table 创建的表名
+删除数据库中创建的表：
+drop table 表名
+
+db.relationship() 定义模型中参数间关系
+author = db.relationship('User',backref('articles'))
+其中,author是属于Article模型的参数,relationship()函数中
+第一个参数是author想要与其产生关系的表的模型的名字
+relationship()第二个参数是反向引用，是通过articles这个属性去
+访问作者写过的所有文章
+
+保存全局变量的g属性：
+g:global
+1.g对象专门用来保存用户的数据
+2.g对象在一次请求中的所有的代码的地方，都是可以使用的
+3.g函数用于减少数据库查询操作，优化web网站响应时间
+
+before_request钩子函数
+在视图函数执行之前执行的函数
+这个函数只是一个装饰器，它可以把需要设置为钩子函数的代码放置在视图函数之前执行
+
+context_processor函数用法？
+多个不同的页面需要相同的变量参数,基于PythonDPY原则，使用上下文函数
+例如：网站教程中的用户名，在不同页面都会出现
+上下文处理器应该返回一个字典，字典中的‘key’会被模板中当成变量来渲染

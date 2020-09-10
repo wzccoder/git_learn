@@ -1,0 +1,24 @@
+装饰器其实是一个函数
+它有两个特别之处：
+    一是参数是一个函数
+    二是返回值是一个函数
+
+装饰器使用的三个规范：
+1.装饰器的使用是通过@符号，放在被装饰函数的前面
+2.装饰器中定义的函数,要使用*args,**kwargs两参数的组合,并且在这个函数中
+执行原始函数的时候也要将两参数的组合传进去
+3.需要使用functools.wraps在装饰器中的定义的函数之前把传进来的函数进行包裹,
+这样就不会丢失传入的函数的__name__等属性
+
+装饰器函数的具体内部实现：
+def my_log(func):
+    @wraps(func)
+    def wrapper(*args,**kwargs):
+        print("My Zone")
+        func(*args,**kwargs)
+    return wrapper
+
+@my_log
+def run()
+    print("run")
+run()
